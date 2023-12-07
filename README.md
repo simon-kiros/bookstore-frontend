@@ -2,13 +2,11 @@
 
 Bookstore frontend web app built using react, typescript and redux
 
-#NB: you need to start the backend server before running this frontend
+## NB: you need to start the backend server before running this frontend
 
 ## Installation
 
 1. Clone the repo
-
-gh repo clone simon-kiros/bookstore-frontend
 
 ```bash
   git clone https://github.com/simon-kiros/bookstore-frontend.git
