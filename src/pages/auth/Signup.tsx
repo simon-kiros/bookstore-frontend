@@ -1,8 +1,7 @@
 import React from "react";
-import { FaBookOpen } from "react-icons/fa";
 import axios from "axios";
-import { redirect } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import { BACKEND_URL } from "../../constitants/Constitant";
 
 function Signup() {
   const navigate = useNavigate();
@@ -14,14 +13,14 @@ function Signup() {
       username: event.target.username.value,
       password: event.target.password.value,
     };
-    const endpoint = "http://localhost:8000/api/bookstore/signup";
+    const endpoint = BACKEND_URL + "auth/signup";
     await axios
       .post(endpoint, data)
       .then((res) => {
         console.log("success ", res);
-        if (res.data.message === "success") {
+        if (res.data.code === 200) {
           console.log(res.data.id);
-          navigate("/bookstore/" + res.data.id + "/books");
+          navigate("/bookstore/" + res.data.userId + "/books");
         } else return 0;
       })
       .catch(function (error) {
@@ -34,20 +33,17 @@ function Signup() {
       <div className="d-flex justify-content-center">
         <div className="text-black border rounded">
           <div className="text-center mt-5">
-            <span className="h2 fw-bold mb-0">
-              <FaBookOpen style={{ marginRight: "15px" }} />
-              XBookStore
-            </span>
+            <span className="h2 fw-bold mb-0">BookStore</span>
           </div>
 
           <div className="d-flex mt-5">
             <form onSubmit={handleSubmit}>
               <p className="opacity-50 text-center text-uppercase">
-                Registration Info
+                Registration
               </p>
               <div
-                className="px-4 py-2"
-                style={{ backgroundColor: "#f1f1f1", width: "40rem" }}
+                className="px-5 py-2"
+                style={{ backgroundColor: "#f1f1f1", minWidth: "28rem" }}
               >
                 <div className="">
                   <div className="form-outline mb-3">

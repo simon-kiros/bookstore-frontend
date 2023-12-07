@@ -29,6 +29,7 @@ function App() {
         <Route path="/bookstore/:userId/orders" element={<Order />} />
         <Route path="/bookstore/:userId/profile" element={<Profile />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="*" element={<h1>Not Found</h1>} />
       </Routes>

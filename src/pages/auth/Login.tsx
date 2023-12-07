@@ -1,11 +1,12 @@
-import React from "react";
+import React, { useRef, useState } from "react";
 import axios from "axios";
-import { useDispatch, useSelector } from "react-redux";
-import { FaBookOpen } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
+import { BACKEND_URL } from "../../constitants/Constitant";
 
 function Login() {
   const navigate = useNavigate();
+  const [flash, setFlash] = useState(false);
+  const ref = useRef();
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -13,15 +14,16 @@ function Login() {
       username: event.target.username.value,
       password: event.target.password.value,
     };
-    const endpoint = "http://localhost:8000/api/bookstore/login";
+    const endpoint = BACKEND_URL + "auth/login";
     await axios
       .post(endpoint, data)
       .then((res) => {
-        console.log("success ", res);
+        ///console.log("success ", res);
         if (res.data.id) navigate("/bookstore/" + res.data.id + "/books");
-        //router.push("/customer/" + res.data.id + "/books");
       })
       .catch(function (error) {
+        setFlash(true);
+        ref.current.value = "";
         console.log(error);
       });
   };
@@ -31,13 +33,16 @@ function Login() {
       <div className="d-flex justify-content-center">
         <div className="text-black border rounded">
           <div className="text-center mt-5">
-            <span className="h2 fw-bold mb-0">
-              <FaBookOpen style={{ marginRight: "15px" }} />
-              BookStore
+            <span className="h2 fw-bold mb-0 ">BookStore</span>
+          </div>
+          <div className="mt-4 text-center">
+            <span
+              className={`small text-danger ${flash ? "d-block" : "d-none"}`}
+            >
+              username or password incorrect
             </span>
           </div>
-
-          <div className="d-flex mt-5">
+          <div className="d-flex mt-2">
             <form style={{ width: "23rem" }} onSubmit={handleSubmit}>
               <div className="px-4 py-2" style={{ backgroundColor: "#f1f1f1" }}>
                 <div className="form-outline mb-3">
@@ -60,7 +65,8 @@ function Login() {
                     type="password"
                     name="password"
                     id="password"
-                    className="form-control "
+                    className="form-control"
+                    ref={ref}
                   />
                 </div>
 

@@ -34,6 +34,10 @@ function Navbar() {
     }
   }
 
+  const handleToggle = () => {
+    setToggleNav(toggleNav === "show" ? "hide" : "show");
+  };
+
   useEffect(() => {
     if (userId) getWallet(userId);
   }, [userId]);
@@ -53,7 +57,7 @@ function Navbar() {
             aria-controls="navbarSupportedContent"
             aria-expanded="false"
             aria-label="Toggle navigation"
-            // onClick={handleToggle}
+            onClick={handleToggle}
           >
             <span className="navbar-toggler-icon"></span>
           </button>
@@ -153,7 +157,7 @@ function Navbar() {
             <li>
               <Link
                 className="border-bottom text-white nav-link"
-                href={`/customer/${store.userId}/books`}
+                href={`/bookstore/${userId}/books`}
               >
                 Books
               </Link>
@@ -161,19 +165,19 @@ function Navbar() {
             <li>
               <Link
                 className="border-bottom text-white nav-link"
-                to={`/customer/${store.userId}/cart`}
+                to={`/bookstore/${userId}/carts`}
               >
                 Cart
               </Link>
               <Link
                 className="border-bottom text-white nav-link"
-                to={`/customer/${store.userId}/orders`}
+                to={`/bookstore/${userId}/orders`}
               >
                 Orders
               </Link>
               <Link
                 className="text-white nav-link"
-                to={`/customer/${store.userId}/profile`}
+                to={`/bookstore/${userId}/profile`}
               >
                 Profile
               </Link>
